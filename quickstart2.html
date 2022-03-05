@@ -1,0 +1,56 @@
+<h2 id="casting-as-abstraction">Casting as Abstraction</h2>
+<p>Cosmos&#39; arithmetic system is a bit intricate. Let&#39;s try summing up two numbers.</p>
+<pre><code>x=<span class="hljs-number">1</span>+<span class="hljs-number">2</span>
+<span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(x)</span></span> <span class="hljs-comment">//1+2</span>
+</code></pre><p>This occurs because the arithmetic operators are actually functors with special syntax. 1+2 really is a functor of type <em>Math Integer Integer</em> rather than an actual <em>Integer</em>.</p>
+<p>In order to get the intended result, we must then convert this functor to an <em>Integer</em>. This is where we use <em>casting</em>.</p>
+<pre><code>print(<span class="hljs-name">int</span>(<span class="hljs-name">x</span>)) //3
+</code></pre><p>Let&#39;s look at the following code,</p>
+<pre><code>x=<span class="hljs-string">'c'</span>+y
+y=<span class="hljs-string">'d'</span>
+<span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(str(z)</span></span>) <span class="hljs-comment">//'cd'</span>
+</code></pre><p>Because we are using functors, we can write logically pure code that sums up strings (naturally, string arithmetic is supported in Cosmos™ ) even if one or more of the parameters is not defined at the time. Note that <em>y</em> is only defined in the second line.</p>
+<p>Only at the end of the program do we need to compute the result, if we need to- for example, in order to write it on the screen. </p>
+<p>Prolog has, to say the least, a very poorly thought-out arithmetic system.</p>
+<ul>
+<li>An operator is used instead, making it unclear that 1+2 and 3 are different types.</li>
+<li>The operator is called <code>is</code>. Suffice to say, this is misleading in a logic programming language that has an <code>=</code> operator to boot.</li>
+<li>While this allows for logically pure code in some ways, that&#39;s not always the case. 1+2=3 evaluating to false is an example.</li>
+</ul>
+<p>Prolog tries to have its cake and eat it too in how it tries to treat arithmetic. It&#39;s unsure on whether to consider 1+2 as a number or not. This is done to make a logically sound system but it ends up being unsound in some ways.</p>
+<p>Cosmos inherits this system somewhat, as Prolog is its host language. However, </p>
+<ul>
+<li>Erroneous results can be better dealt with in a typed language (for example, 1+2=3 is simply a type error).</li>
+<li>We use casting as it&#39;s a better metaphor for the whole thing.</li>
+</ul>
+<h2 id="what-is-a-functor-">What is a functor?</h2>
+<p>Most Prolog tutorials simply explain functors as &quot;composite data&quot;. Effectively, they&#39;re very similar to what&#39;s known as <code>named tuples</code>. They may in fact just be <code>named tuples</code>.</p>
+<p>The use of the word in Prolog predates the functional use of the word. Despite this, many of the same patterns can be used regardless of whether it&#39;s functional or language programming we&#39;re talking about. It seems being typed makes logic functors very similar to functional functors.</p>
+<p>But what is a functor? You&#39;re free to think about this whether it is from a philosophical, mathematical or historical perspective. It gets asked a lot.</p>
+<p>Cosmos, however, is only interested in this from a pragmatic perspective. It&#39;s enough that we can use them as a language feature to implement lists and other structures. We don&#39;t ask &quot;what is a for-statement?&quot;. We simply use for-statements.</p>
+<h2 id="print-vs-write">print vs write</h2>
+<p>Cosmos is an user-friendly language. It would not be very user-friendly to not have a ready, general-purpose <code>print</code> statement. As such, a <code>hello world</code> can be written as,</p>
+<p><code>print(&#39;hello world&#39;)</code></p>
+<p>Note that this will output,
+<code>&#39;hello world&#39;</code>
+While <code>io.writeln(&#39;hello world&#39;)</code> will output,
+<code>hello world</code></p>
+<p>In short, write outputs to the user and is the relation to use in a proper program while <code>print</code> can still be used for debugging or short scripts.</p>
+<h2 id="host">Host</h2>
+<p>Cosmos is currently compiled into Prolog. As such, it&#39;s possible to call predicates of Prolog from Cosmos.</p>
+<pre><code><span class="hljs-built_in">rel</span> <span class="hljs-built_in">write</span>(x)
+    pl::<span class="hljs-built_in">write</span>(x)<span class="hljs-comment"> //calls Prolog predicate 'write'</span>
+</code></pre><h2 id="using-cosmos-within-prolog">Using Cosmos within Prolog</h2>
+<p>It&#39;s possible to do the opposite, that is, embedding Cosmos in a Prolog program.</p>
+<p>The following predicates are available in the Swi-Prolog pack.</p>
+<p><strong>cstart/0.</strong></p>
+<p>Opens the interpreter.</p>
+<p><strong>ceval/1.</strong></p>
+<p>Evaluates code then closes the session. e.g.</p>
+<p><code>:- ceval(&#39;x=1 or y=3&#39;).</code></p>
+<p><strong>ui/0.</strong></p>
+<p>Graphical swi debugger.</p>
+<p>Shorthand for guitracer,trace.</p>
+<p><strong>ccompile/1.</strong></p>
+<p>Compiles module e.g.</p>
+<p><code>:- cmodule(&#39;name&#39;) ; name.co is a module file</code></p>

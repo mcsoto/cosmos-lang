@@ -1,0 +1,193 @@
+<h2 id="interpreter">Interpreter</h2>
+<p>You can try out the language by opening the interpreter and making <em>queries</em> to the language.</p>
+<pre><code>$ cosmos -i
+&gt; x=<span class="hljs-number">1</span>
+| x = <span class="hljs-number">1</span>
+&gt; x=<span class="hljs-number">1</span> or <span class="hljs-number">2</span>=x
+| x = <span class="hljs-number">1</span>
+| x = <span class="hljs-number">2</span>
+</code></pre><h2 id="writing-a-file">Writing a file</h2>
+<p>Make a file <code>hello.co</code> with the content,</p>
+<p><code>print(&#39;hello world&#39;)</code></p>
+<p>The file can be loaded with the <code>-l</code> flag.</p>
+<pre><code>$ cosmos <span class="hljs-_">-l</span> hello
+<span class="hljs-string">'hello world'</span>`
+</code></pre><h2 id="relations">Relations</h2>
+<p>Instead of functions, Cosmos has relations.</p>
+<p>They&#39;re made using the <code>rel</code> keyword.</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">//note that the there is no 'return' in the definition</span>
+<span class="hljs-comment">//instead, the parameter y is explicit</span>
+<span class="hljs-comment">//this is typically the 'output' parameter</span>
+rel double(x, y)
+    y = x*<span class="hljs-number">2</span>
+
+<span class="hljs-function"><span class="hljs-title">double</span><span class="hljs-params">(<span class="hljs-number">4</span>,x)</span></span> <span class="hljs-comment">//x is 8</span>
+</code></pre>
+<p>Whereas functions have one output, relations may have zero, one or more outputs. You can check this by making queries at the interpreter.</p>
+<pre><code class="lang-$">cosmos -i
+&gt; x=<span class="hljs-number">1</span> or x=<span class="hljs-number">2</span> <span class="hljs-comment">//this query has two answers (outputs)</span>
+| x = <span class="hljs-number">1</span>
+| x = <span class="hljs-number">2</span>
+</code></pre>
+<p>If the system picks one answer and it turns out to be invalid, the system will backtrack and pick the other.</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">rel</span> p(x)
+    x=<span class="hljs-number">1</span> <span class="hljs-keyword">or</span> x=<span class="hljs-number">2</span>
+
+<span class="hljs-built_in">rel</span> main()
+    p(x)
+    x!=<span class="hljs-number">1</span>
+    io.writeln(x)<span class="hljs-comment"> //2</span>
+</code></pre>
+<p>Relations may adopt function syntax. This lets relations be nested.</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(double(<span class="hljs-number">3</span>)</span></span>) <span class="hljs-comment">//this will print 6</span>
+</code></pre>
+<p>Logic-wise, <code>double(4,x)</code> is read as a statement: &quot;the double of 4 is x&quot;.</p>
+<p><code>double(4)</code> reads as &quot;the double of 4&quot;.</p>
+<h2 id="first-class-relation">First-class relation</h2>
+<p>Relations are first-class values. It&#39;s possible to define a relation within another.</p>
+<pre><code>rel p(<span class="hljs-name">x</span>)
+    rel temp(<span class="hljs-name">x</span>)
+        x = <span class="hljs-number">2</span>
+    temp(<span class="hljs-name">x</span>)
+
+p(<span class="hljs-name">x</span>) //x is <span class="hljs-number">2</span>
+</code></pre><p>Alternatively:</p>
+<pre><code>rel p(<span class="hljs-name">x</span>)
+    temp = rel(<span class="hljs-name">x</span>)
+        x = <span class="hljs-number">2</span>
+    temp(<span class="hljs-name">x</span>)
+</code></pre><h2 id="functors">Functors</h2>
+<p>Functors are composite data.</p>
+<pre><code><span class="hljs-function"><span class="hljs-title">functor</span><span class="hljs-params">(F, Functor)</span></span> <span class="hljs-comment">//declares an object for creating functors</span>
+x = F(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">//x is assigned to a functor F composed by the values 1 and 2</span>
+x = F(<span class="hljs-number">1</span>, a) <span class="hljs-comment">//uses pattern matching to match F(1, 2) against F(1, a)</span>
+<span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(a)</span></span> <span class="hljs-comment">//2</span>
+</code></pre><p>The special relation <em>functor</em> is used to declare F as an object for making functors.</p>
+<p>Lists are syntax sugar for the functor Cons. Here are two ways to define a list:</p>
+<pre><code><span class="hljs-attr">l</span> = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]
+<span class="hljs-attr">l</span> = Cons(<span class="hljs-number">1</span>, Cons(<span class="hljs-number">2</span>, Cons))
+</code></pre><p>Relations such as <em>first</em>, <em>map</em> and <em>filter</em> can be used to manipulate lists.</p>
+<pre><code>l = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]
+<span class="hljs-type">list</span>.first(l, head) <span class="hljs-comment">//head is 1</span>
+<span class="hljs-type">list</span>.rest(l, tail) <span class="hljs-comment">//tail is [2, 3]</span>
+<span class="hljs-type">list</span>.map(l, math.inc, l2) <span class="hljs-comment">//l2 is [2, 3, 4]</span>
+<span class="hljs-type">list</span>.map(l3, math.inc, l) <span class="hljs-comment">//l3 is [0, 1, 2]</span>
+<span class="hljs-type">list</span>.filter(l, rel(x) x!=<span class="hljs-number">3</span>;, l4) <span class="hljs-comment">//l4 is [1, 2]</span>
+</code></pre><h2 id="immutability">Immutability</h2>
+<p>Variables are immutable. Instead of modifying a value we create a new one.</p>
+<pre><code>l2 = <span class="hljs-type">list</span>.push(l, <span class="hljs-number">55</span>) <span class="hljs-comment">//instead of modifying l, we create a new variable l2</span>
+io.writeln(l)  <span class="hljs-comment">//[1, 2, 3]</span>
+io.writeln(l2) <span class="hljs-comment">//[1, 2, 3, 55]</span>
+</code></pre><p>Cosmos adopts many principles and features that are common in functional programming languages (although the principles apply to <em>relations</em> rather than <em>functions</em>).</p>
+<h2 id="types">Types</h2>
+<p>Cosmos manages a balance between strictness and non-strictness. Writing the type of a variable is (almost always) optional.</p>
+<pre><code class="lang-javascript">    Integer n = <span class="hljs-number">7</span>
+    Real x = <span class="hljs-number">5.2</span>
+    String s = 'abc'
+    z = <span class="hljs-number">5</span> <span class="hljs-comment">//z is implied to be an Integer</span>
+    Functor l = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+    functor(F, Functor)
+    Functor f = F('apple', <span class="hljs-number">5</span>)
+</code></pre>
+<p>The type system supports <em>composite types</em>.</p>
+<pre><code>    Functor <span class="hljs-built_in">String</span> <span class="hljs-built_in">Number</span> f2 = F(<span class="hljs-string">'apple'</span>, <span class="hljs-number">2</span>)
+</code></pre><p><em>Functor String Number</em> is a composite type that accepts any functor whose first element is a string and second is a number.</p>
+<pre><code>    Relation <span class="hljs-built_in">Any</span> <span class="hljs-built_in">Any</span> p = <span class="hljs-keyword">double</span>
+</code></pre><p>Relations get composite types. <em>Relation Any Any</em> is a type that accepts any relation with exactly two arguments.</p>
+<h2 id="tables">Tables</h2>
+<p>Tables (also known as maps, dictionaries, etc.) are structures that map keys to values.</p>
+<pre><code class="lang-javascript">Table t = {x=<span class="hljs-number">1</span> and y=<span class="hljs-number">2</span>}
+<span class="hljs-selector-tag">table</span>.set(t, <span class="hljs-string">'a'</span>, <span class="hljs-number">1</span>, t2)
+
+<span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(t)</span></span> <span class="hljs-comment">//{'x': 1, 'y': 2}</span>
+<span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(t2)</span></span> <span class="hljs-comment">//{'x': 1, 'y': 2, 'a': 1}</span>
+</code></pre>
+<h2 id="making-a-module">Making a module</h2>
+<p>Cosmos files are typically given the .co extension.</p>
+<pre><code class="lang-js"><span class="hljs-comment">//x.co</span>
+rel p(x)
+    x=<span class="hljs-number">2</span>
+
+t = {
+    <span class="hljs-string">'p'</span> = <span class="hljs-selector-tag">p</span>
+}
+<span class="hljs-function"><span class="hljs-title">export</span><span class="hljs-params">(t)</span></span>
+</code></pre>
+<p>As we have mentioned, Cosmos is in part inspired by imperative scripting languages--specifically, prototypal ones. </p>
+<p>The principle is thus the same. The relation <code>p</code> is inserted into a table, which is then exported.</p>
+<p>This could&#39;ve been written as,</p>
+<pre><code class="lang-js"><span class="hljs-comment">//x.co</span>
+t = {
+    rel p(x)
+        x=<span class="hljs-number">2</span>
+}
+<span class="hljs-function"><span class="hljs-title">export</span><span class="hljs-params">(t)</span></span>
+</code></pre>
+<p>We then use the special relation <code>require</code>,</p>
+<pre><code><span class="hljs-function"><span class="hljs-title">require</span><span class="hljs-params">(<span class="hljs-string">'x'</span>, x)</span></span>
+x.p(<span class="hljs-number">2</span>)
+<span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(x)</span></span> <span class="hljs-comment">//2</span>
+</code></pre><h2 id="whitespace">Whitespace</h2>
+<p>The language is whitespace sensitive.</p>
+<pre><code>rel p(<span class="hljs-name">x</span>)
+    x!=1
+    x&lt;5
+</code></pre><p>This could be a single line.</p>
+<pre><code>rel p(<span class="hljs-name">x</span>) x!=1 and x&lt;5<span class="hljs-comment">;</span>
+</code></pre><p>It&#39;s possible to drop the whitespace semantics by writing the unnecessary characters, although this is not generally advisable.</p>
+<p>Note that relations from different lines are separated by <em>ands</em> (semicolons are only used to end the indendation).</p>
+<h2 id="booleans">Booleans</h2>
+<p>There is no boolean type. Instead, relations themselves are &quot;booleans&quot;.</p>
+<h2 id="using-cases">Using cases</h2>
+<p>As you may have noted, <code>and/or</code> is a huge part of the language. Hence, there are many operators that are shorthand for <code>and/or</code>. One of them is <code>case</code> (alias: <code>cond</code>).</p>
+<pre><code><span class="hljs-keyword">case</span>
+    s = <span class="hljs-comment">'a'</span>
+<span class="hljs-keyword">case</span>
+    s = <span class="hljs-comment">'b'</span>
+    x = <span class="hljs-number">1</span>
+<span class="hljs-keyword">case</span>
+    x = <span class="hljs-number">2</span>
+</code></pre><p>This is sugar for,</p>
+<pre><code>(<span class="hljs-attr">s</span> = 'a') <span class="hljs-literal">or</span> (<span class="hljs-attr">s</span> = 'b' <span class="hljs-literal">and</span> <span class="hljs-attr">x</span> = <span class="hljs-number">1</span>) <span class="hljs-literal">or</span> <span class="hljs-attr">x</span> = <span class="hljs-number">2</span>
+</code></pre><h2 id="operators">Operators</h2>
+<p>There&#39;s also support for if-statements.</p>
+<pre><code><span class="hljs-keyword">if</span>(<span class="hljs-attr">s</span> = 'a')
+    <span class="hljs-attr">x</span> = <span class="hljs-number">0</span>
+<span class="hljs-keyword">else</span>
+    <span class="hljs-attr">x</span> = <span class="hljs-number">2</span>
+</code></pre><p>This is equivalent to,</p>
+<pre><code>(<span class="hljs-name">s</span> = 'a' and x = <span class="hljs-number">0</span>) or (<span class="hljs-name">*s</span> != 'a'* and x = <span class="hljs-number">2</span>)
+</code></pre><p>Note that the condition is negated. This is as expected. The keyword &#39;else&#39; implies the condition is not the case.</p>
+<p>The downside of this is that more complex conditions may not be accepted by the compiler.</p>
+<pre><code>if(<span class="hljs-name">p</span>(<span class="hljs-name">x</span>))
+    x=1
+else
+    x=2
+</code></pre><h2 id="negation-is-complicated">Negation is complicated</h2>
+<p>The condition this time is p(x). How do we negate an arbitrary relation like p(x)? All the while keeping the code logically pure?</p>
+<p>As is known by now, the first logic programming language implemented negation in a very naive way. The result is that you could not be sure your code was sound and the operator is deprecated to this day.</p>
+<p>Cosmos&#39; philosophy is that if logically pure code is not supported, the compiler will give an error.</p>
+<p>This may not seem like much, but it means you are free to use operators without worrying. When operators could affect the rest of the code in unseen ways before, this is an important change. It is much closer to the goal of &quot;programming in logic&quot;.</p>
+<p>As the main conditional operator of the language, <em>if</em> is guaranteed to be a logically sound conditional, or, if it can&#39;t do that, an error will occur.</p>
+<h2 id="if-vs-when">if vs when</h2>
+<pre><code>when(<span class="hljs-name">p</span>(<span class="hljs-name">x</span>))
+    x=1
+else
+    x=2
+</code></pre><p>One way out of this is to replace <code>if</code> with the similar operator <code>when</code>. This is sugar for,</p>
+<pre><code>(<span class="hljs-name">p</span>(<span class="hljs-name">x</span>) and x = <span class="hljs-number">1</span>) or (<span class="hljs-name">x</span> = <span class="hljs-number">2</span>)
+</code></pre><p>Note that it does not negate the clause. As noted, this is a bit misleading since it still uses the &#39;else&#39; keyword. Furthermore, the condition is kind of redundant. However, it evaluates to pure code.</p>
+<p>In conclusion, <code>when</code> is an operator for when you do not need to negate the clause (or you want to negate it manually). It&#39;s simply a more procedural-looking way of writing &#39;case&#39;.</p>
+<p>Another reason for having <code>when</code> is that it can be easily switched with <code>if</code> if there is a need to.</p>
+<h2 id="impure-operators">Impure operators</h2>
+<p>While Cosmos puts emphasis on pure code, it may not be possible to avoid resorting to impure operators (specially in the language&#39;s current state).</p>
+<p>These are not the worse LP has to offer (in fact, Prolog often calls them <em>soft-cut</em>, as they are mild versions of the <em>cut</em> operator), but the following operators are not completely pure:</p>
+<pre><code>//this is <span class="hljs-keyword">a</span> conditional that will <span class="hljs-string">'choose'</span> <span class="hljs-literal">one</span> <span class="hljs-keyword">of</span> <span class="hljs-keyword">the</span> options <span class="hljs-keyword">without</span> much concern <span class="hljs-keyword">for</span> purity
+choose(p(x))
+    x=<span class="hljs-number">1</span>
+<span class="hljs-keyword">else</span>
+    x=<span class="hljs-number">2</span>
+<span class="hljs-comment">
+//this will only select the first answer given by p(x)</span>
+once p(x)
+</code></pre>
