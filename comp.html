@@ -1,0 +1,38 @@
+<h2 id="logic-programming">Logic programming</h2>
+<p>Cosmos could be seen as a modern take on LP.</p>
+<p>In fact, it currently compiles to Prolog code (it&#39;s a &quot;transpiler&quot; language).</p>
+<p>In doing so, it aims to provide syntax sugar and utilities that may not have been there in &quot;classical Prolog&quot; as most know it.</p>
+<p>This includes,</p>
+<ul>
+<li>Types and better error-checking.</li>
+<li>Functional programming.</li>
+<li>Operators such as <em>if</em> and <em>not</em> that work seamlessly.</li>
+</ul>
+<h2 id="syntax">Syntax</h2>
+<p>As a point of comparison,</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">rel</span> human(x)
+    x=<span class="hljs-string">'socrates'</span>
+
+<span class="hljs-built_in">rel</span> mortal(x)
+    human(x)
+</code></pre>
+<p>See Prolog code below.</p>
+<pre><code><span class="hljs-function"><span class="hljs-title">human</span><span class="hljs-params">(socrates)</span></span>.
+
+<span class="hljs-function"><span class="hljs-title">mortal</span><span class="hljs-params">(x)</span></span> &lt;-
+    human(x).
+</code></pre><p>While we lose the ability to define simple facts like <code>human(socrates)</code> in fact notation, note that complex relations remain mostly the same, i.e. it&#39;s possible to use LP-style programming.</p>
+<p>The whitespace syntax is also useful when it comes to introducing more complex operators like <em>if</em> and helps also avoid the dangling-comma problem. This is specially useful in LP as you may want to switch clauses.</p>
+<p>All the while, this addresses common criticisms of the language. For instance, one can decrease the amount of explict variables by nesting them in function notation, i.e. <code>x=double(double(2))</code>.</p>
+<h2 id="scripting-languages">Scripting languages</h2>
+<p>While the syntax is inspired by scripting languages, specifically prototypal ones, some criticisms are also addressed. </p>
+<p>Furthermore, </p>
+<pre><code>t={
+    <span class="hljs-function">rel <span class="hljs-title">human</span>(<span class="hljs-params">x</span>)
+        x</span>=<span class="hljs-string">'socrates'</span>
+
+    <span class="hljs-function">rel <span class="hljs-title">mortal</span>(<span class="hljs-params">x</span>)
+        <span class="hljs-title">human</span>(<span class="hljs-params">x</span>)
+}</span>
+</code></pre><p>While inserting functions/relations in a map to create a <em>module</em> or <em>object</em> is a common pattern in such languages, this is often not possible with such clean syntax.</p>
+<p>That is, code outside of a module can be simply inserted as-is into the <em>module</em> or <em>object</em>. It&#39;s then possible to switch from an Object to a non-Object style or vice versa.</p>

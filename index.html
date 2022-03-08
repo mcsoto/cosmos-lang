@@ -14,7 +14,7 @@
 <li>All while being a logic programming language... (relations, non-determinism)</li>
 <li>...<del>with objects</del>! (not included yet)</li>
 </ul>
-<p>There&#39;s a lot more to say but that will depend on which school-of-thought you belong to-- <em>how can logic language have objects? Why a procedural syntax? Why functional?</em> Truly, the Cosmos is vast.</p>
+<p>See also a few <a href="https://mcsoto.github.io/cosmos-lang/comp.html">points of comparison-</a> or go right to the <a href="https://mcsoto.github.io/cosmos-lang/quickstart.html">Quickstart</a> section.</p>
 <p>Cosmos is in-development. Documentation is provided for development. Please understand that the language is in-development.</p>
 <h1 id="documentation">Documentation</h1>
 <ul>
@@ -23,7 +23,7 @@
 </ul>
 <h1 id="installation">Installation</h1>
 <h2 id="as-an-executable">As an Executable</h2>
-<p>Cosmos can be installed by, (1). Installing Swi-Prolog (preferably 8.4+), (2) downloading the latest release, and (3) simply typing,</p>
+<p>Cosmos can be installed by, (1). Installing Swi-Prolog (preferably 8.4+), (2) downloading the <a href="https://github.com/mcsoto/cosmos-lang/releases/tag/v0.13.3-alpha">latest release</a>, and (3) simply typing,</p>
 <pre><code><span class="hljs-attribute">make</span>
 </code></pre><p>in the project directory.</p>
 <p>This should work on any system that can run Swi-Prolog.</p>
@@ -36,5 +36,5 @@
 </code></pre><p>You can then load the language.</p>
 <pre><code><span class="hljs-selector-pseudo">:-</span> <span class="hljs-selector-tag">use_module</span>(library(cosmos)).
 <span class="hljs-selector-pseudo">:-</span> <span class="hljs-selector-tag">cquery</span>(<span class="hljs-string">'x=2'</span>).
-</code></pre><p>As said, this is recommended if you&#39;re already a Prolog user since it means using the Cosmos facilities <em>inside</em> Prolog. This is somewhat redundant.</p>
+</code></pre><p>As said, this is recommended if you&#39;re already a Prolog user since it means using the Cosmos facilities <em>inside</em> Prolog. You&#39;d be opening the Cosmos interpreter inside the Prolog interpreter, and so on. This is somewhat redundant. </p>
 <p>Naturally, you may install it both normally and as a pack.</p>
