@@ -1,4 +1,7 @@
-<h3 id="introduction">Introduction</h3>
+<html><head><style>body {
+   color: black;
+}
+</style></head><body><h3 id="introduction">Introduction</h3>
 <p>Cosmos is an in-development logic-functional, statically typed prototypal language.</p>
 <pre><code class="lang-javascript"><span class="hljs-built_in">rel</span> main()
     x = io.<span class="hljs-built_in">read</span>()
@@ -12,29 +15,30 @@
 <li>Fully procedural, whitespace-sensitive syntax...</li>
 <li>Functional features... (immutability, closures, type inference)</li>
 <li>All while being a logic programming language... (relations, non-determinism)</li>
-<li>...<del>with objects</del>! (not included yet)</li>
+<li>...with objects!</li>
 </ul>
 <p>See also a few <a href="https://mcsoto.github.io/cosmos-lang/comp.html">points of comparison-</a> or go right to the <a href="https://mcsoto.github.io/cosmos-lang/quickstart.html">Quickstart</a> section.</p>
-<p>Cosmos is in-development. Documentation is provided for development. Please understand that the language is in-development.</p>
+<p>Cosmos is still in-development. Documentation is provided for development.</p>
 <h1 id="documentation">Documentation</h1>
+<p>Please look at the <a href="https://mcsoto.github.io/cosmos-lang/quickstart.html">Quickstart</a> or the full <a href="https://mcsoto.github.io/cosmos-lang/guide.html">Guide</a>*.</p>
 <ul>
-<li><a href="https://mcsoto.github.io/cosmos-lang/quickstart.html">Quickstart</a></li>
 <li><a href="https://mcsoto.github.io/cosmos-lang/quickstart2.html">A few more notes (Quickstart 2.0)</a></li>
 </ul>
-<h1 id="installation">Installation</h1>
-<h2 id="as-an-executable">As an Executable</h2>
-<p>Cosmos can be installed by, (1). Installing Swi-Prolog (preferably 8.4+), (2) downloading the <a href="https://github.com/mcsoto/cosmos-lang/releases/tag/v0.13.3-alpha">latest release</a>, and (3) simply typing,</p>
-<pre><code><span class="hljs-attribute">make</span>
-</code></pre><p>in the project directory.</p>
-<p>This should work on any system that can run Swi-Prolog.</p>
-<p>You can test that the installation has succeeded.</p>
-<pre><code><span class="hljs-variable">$ </span>cosmos -v
-<span class="hljs-string">"Cosmos 0.13 beta - (Pl)"</span>
-</code></pre><h2 id="pack">Pack</h2>
-<p>Cosmos can be installed as a Swi-Prolog pack. This is recommended if you are already a Prolog user or plan to use the languages together.</p>
-<pre><code><span class="hljs-selector-pseudo">:-</span> <span class="hljs-selector-tag">pack_install</span>(cosmos).
-</code></pre><p>You can then load the language.</p>
-<pre><code><span class="hljs-selector-pseudo">:-</span> <span class="hljs-selector-tag">use_module</span>(library(cosmos)).
-<span class="hljs-selector-pseudo">:-</span> <span class="hljs-selector-tag">cquery</span>(<span class="hljs-string">'x=2'</span>).
-</code></pre><p>As said, this is recommended if you&#39;re already a Prolog user since it means using the Cosmos facilities <em>inside</em> Prolog. You&#39;d be opening the Cosmos interpreter inside the Prolog interpreter, and so on. This is somewhat redundant. </p>
-<p>Naturally, you may install it both normally and as a pack.</p>
+<p>The guide is meant to be a more comprehensive guide and documentation. It may perhaps need some proof-reading. The Quickstart is a quicker intro and assumes you have prior experience with procedural or functional languages.</p>
+<h1 id="documentation">Documentation</h1>
+<p>See the <a href="https://mcsoto.github.io/cosmos-lang/quickstart.html">Download</a> section.</p>
+<ul>
+<li><a href="https://mcsoto.github.io/cosmos-lang/quickstart2.html">A few more notes (Quickstart 2.0)</a>
+&lt;!--<h1 id="why-cosmos-">Why Cosmos?</h1>
+</li>
+</ul>
+<p>Cosmos is a simple language that combines procedural, functional, logic programming and more.</p>
+<h2 id="it-s-simple">It&#39;s simple</h2>
+<p>It&#39;s a simple, minimal and user-friendly language.</p>
+<p>Since it&#39;s a somewhat minimal language, it can be learned in a quick time-- as soon as you get used to programming in a LP paradigm.</p>
+<p>Once you learn the basics, it&#39;s easy to use.</p>
+<h2 id="it-s-safe">It&#39;s safe</h2>
+<p>The language is checked for type, mode and runtime errors.</p>
+<h2 id="programming-with-relations">Programming with relations</h2>
+<p>--&gt;</p>
+</body></html>

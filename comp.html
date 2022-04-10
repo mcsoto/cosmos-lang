@@ -1,12 +1,16 @@
-<h2 id="logic-programming">Logic programming</h2>
+<html><head><style>body {
+   color: black;
+}
+</style></head><body><h2 id="1-logic-programming">1. Logic programming</h2>
 <p>Cosmos could be seen as a modern take on LP.</p>
 <p>In fact, it currently compiles to Prolog code (it&#39;s a &quot;transpiler&quot; language).</p>
 <p>In doing so, it aims to provide syntax sugar and utilities that may not have been there in &quot;classical Prolog&quot; as most know it.</p>
 <p>This includes,</p>
 <ul>
+<li>Modules.</li>
 <li>Types and better error-checking.</li>
 <li>Functional programming.</li>
-<li>Operators such as <em>if</em> and <em>not</em> that work seamlessly.</li>
+<li>Operators such as <em>if</em> and <em>not</em>.</li>
 </ul>
 <h2 id="syntax">Syntax</h2>
 <p>As a point of comparison,</p>
@@ -23,10 +27,95 @@
     human(x).
 </code></pre><p>While we lose the ability to define simple facts like <code>human(socrates)</code> in fact notation, note that complex relations remain mostly the same, i.e. it&#39;s possible to use LP-style programming.</p>
 <p>The whitespace syntax is also useful when it comes to introducing more complex operators like <em>if</em> and helps also avoid the dangling-comma problem. This is specially useful in LP as you may want to switch clauses.</p>
-<p>All the while, this addresses common criticisms of the language. For instance, one can decrease the amount of explict variables by nesting them in function notation, i.e. <code>x=double(double(2))</code>.</p>
-<h2 id="scripting-languages">Scripting languages</h2>
-<p>While the syntax is inspired by scripting languages, specifically prototypal ones, some criticisms are also addressed. </p>
-<p>Furthermore, </p>
+<p>All the while, we do aim to address many common criticisms of the language.</p>
+<p>Such as...</p>
+<h2 id="the-syntax">The Syntax</h2>
+<p>This is becoming a tired point, but having modern operators and a common syntax (!=, &gt;=, // for comments, etc.) in itself might be a plus for many programmers.</p>
+<p>Having a modern syntax with familiar operators changes the programming experience quite a lot.</p>
+<p>All the while, syntax choices that made sense back when Prolog was made, like distinguishing upper from lowercase variables, have not become popular.</p>
+<p>Whether or not you consider this a worthwhile feature, it has not been adopted by programming at large. Some even consider it a point of criticism.</p>
+<p>As a new language, we have decided to adopt a modern syntax whenever possible.</p>
+<h2 id="it-s-modern">It&#39;s Modern</h2>
+<p>While syntax is subjective, there are also many objective upsides to being a modern language.</p>
+<p>To this day, Prolog still uses naming like _string<em>concat</em> for its variables. This is much less modular than <em>string.concat</em>, or at least, <em>string:concat</em>, while being inconsistent with <em>append</em>. </p>
+<p>This is indicative of lack of polymorphism, bad naming conventions for standard libs, modularity problems, etc.</p>
+<p>Things like consistent naming are simple quality-of-life improvements that we take for granted in modern languages.</p>
+<p>That aside, a modern language like Cosmos benefits from advances in,</p>
+<ul>
+<li>Scripting languages,</li>
+<li>Object-oriented languages,</li>
+<li>Functional languages,</li>
+<li><em>Logic programming</em> itself,</li>
+</ul>
+<p>That may not have been there yet.</p>
+<p>(It&#39;s actually worse! Many advances in LP have been proposed as far back as Prolog III, by the creators of Prolog, and are just now getting adopted. They&#39;re not even new at all.)</p>
+<h2 id="runtime-and-overall-error-checking">Runtime and overall error-checking</h2>
+<p>This is not frequently mentioned, but Prolog is <em>very</em> prone to runtime errors. There&#39;s quite a difference to programming with more or less runtime errors and error-checking.</p>
+<h2 id="too-many-variables">Too many variables</h2>
+<p>One can decrease the amount of explicit variables by nesting them in function notation, i.e. <code>x=double(double(2))</code>.</p>
+<h2 id="pure-by-default">Pure by Default</h2>
+<p>As much as pure logic programming is possible in Prolog, it&#39;s not the <em>default</em>. A new programmer has to avoid numerous pitfalls and search among thousands of different predicates and libraries for the few that support pure logic programming in order to program logically.</p>
+<p>Essentially, unless you have been programming for 10 years, you won&#39;t know where to look.</p>
+<p><em>Programming in logic</em> is in fact the motto of logic programming. Prioritizing pure logic programming is compatible both with the decision of being a logic language and to being an user-friendly scripting language.</p>
+<h2 id="constraints-by-default">Constraints by Default</h2>
+<p>While this is somewhat experimental, the fact is that arithmetic operators generally have well-researched <em>pure counterparts</em>, yet... these are not the default.</p>
+<p>The default operators use error-prone constructs. In modern days, this would be called...<em>not very user-friendly.</em></p>
+<p>Which is terrible!</p>
+<h2 id="too-much-impurity">Too much impurity</h2>
+<p>The main complaint has always been that Prolog programmers often have to resort to non-logical operators, specially + and !.</p>
+<p>These are like the <em>goto</em> of LP. While goto in itself is a bad programming practice, it&#39;s used to implement if, while and for-statements.</p>
+<p>It&#39;s the same here. Less error-prone abstractions are possible in modern LP.</p>
+<p>Even if you do need to fall back from pure logic, there are better ways to do so.</p>
+<h2 id="2-scripting-languages">2. Scripting languages</h2>
+<p>The syntax of Cosmos™ is based on scripting languages. In particular, modern languages like Python and particularly prototypal ones like Lua and JavaScript.</p>
+<p>Naturally, this makes it a good choice of a language if you&#39;re a procedural programmer thinking on trying out logic--or functional, features.</p>
+<p>Of course, we aim to have a clean syntax even by the standards of an imperative language. The syntax should also stand out by itself.</p>
+<p>While it is inspired by scripting languages, specifically prototypal ones, some criticisms of those same languages are also addressed. </p>
+<h2 id="bad-design">Bad design</h2>
+<p>A few features of modern scripting languages are very often considered bad design[1]. Some may find this a fault.</p>
+<p>Some of them are,</p>
+<ul>
+<li>Redundant operators, such as === and ==.</li>
+<li>Variables are local by default, not global.</li>
+</ul>
+<p>Cosmos adopts a few design principles, and besides, it&#39;s not an imperative language, and that alone avoids many of those criticisms.</p>
+<p>[1] A <em>linter</em> would prohibit use of them, for example.</p>
+<h2 id="local-by-default">Local by default</h2>
+<p>Variables in Cosmos are local-by-default.</p>
+<p>Often, scripting languages require you to explicitly type <em>local x=2</em> or <em>var/let x=2</em> to make a variable local, rather than vice versa. This may lead to errrors.</p>
+<p>It would make a lot sense to let <em>x=2</em> make a local variable, allowing the user to make a global only if they do specify it.</p>
+<p>This also means programmers have to constantly write <em>local</em> keywords, since locals are usually intended.[1]</p>
+<p>The latter means there&#39;s no necessity to write local keywords every time. Even a <em>x=2</em> statement still makes x a local variable.</p>
+<pre><code class="lang-javascript"><span class="hljs-function">rel <span class="hljs-title">p</span><span class="hljs-params">(x)</span>
+    x </span>= <span class="hljs-number">2</span> <span class="hljs-comment">//this is local</span>
+</code></pre>
+<p>See also Strictness vs non-Scrictness.</p>
+<p>[1] Another issue is that those languages will then have <code>var/val/let</code> keywords. This is <em>three</em> different keywords that practically mean the same thing! This is quite overdoing it.</p>
+<h2 id="redundant-keywords">Redundant keywords</h2>
+<p>Languages today go particularly far in type declarations.</p>
+<p><code>var t:Integer</code></p>
+<p>Compare it to,</p>
+<p><code>Integer t</code></p>
+<p>There are at least two more keywords (<code>var</code> and <code>:</code>) in the fist. Besides, you are making the user choose between <code>var/val/let</code> when there&#39;s close to no difference between them. Three keywords for making aa local variable is quite overdoing it. For this reason, we prefer the C-style.</p>
+<h2 id="strictness-vs-non-scrictness">Strictness vs non-Scrictness</h2>
+<p>The above doesn&#39;t mean we want to take an extremely strictly approach, and we take a middle ground approach.</p>
+<p>We want to make use of the fact that type inference makes typing optional. Effectively, this is a scripting language that allows simple code like <em>x=2</em> and typing on top of that is a bonus.</p>
+<p>This allows for the following error,</p>
+<pre><code class="lang-javascript">x = <span class="hljs-number">1</span>
+rel p()
+    x = <span class="hljs-number">2</span> <span class="hljs-comment">//clashes with previous x</span>
+</code></pre>
+<p>This would be an argument for more strictness, yet, this can be solved by a code convention. Why do we have a variable holding a <em>magic number</em> in the top scope? Usually, such variables get a special naming.</p>
+<pre><code class="lang-javascript">_x = <span class="hljs-number">1</span>
+rel p()
+    x = <span class="hljs-number">2</span> <span class="hljs-comment">//clashes with previous x</span>
+</code></pre>
+<p>On the non-strict side,</p>
+<pre><code class="lang-javascript"><span class="hljs-attr">x</span> = Tuple(<span class="hljs-number">1</span>,x)
+</code></pre>
+<p>Anything that would require typing can be done by using a built-in method, i.e. you may avoid dealing with functor types by using a Tuple.</p>
+<h2 id="syntax-for-modules">Syntax for Modules</h2>
+<p>Furthermore,</p>
 <pre><code>t={
     <span class="hljs-function">rel <span class="hljs-title">human</span>(<span class="hljs-params">x</span>)
         x</span>=<span class="hljs-string">'socrates'</span>
@@ -36,3 +125,9 @@
 }</span>
 </code></pre><p>While inserting functions/relations in a map to create a <em>module</em> or <em>object</em> is a common pattern in such languages, this is often not possible with such clean syntax.</p>
 <p>That is, code outside of a module can be simply inserted as-is into the <em>module</em> or <em>object</em>. It&#39;s then possible to switch from an Object to a non-Object style or vice versa.</p>
+<h2 id="3-functional-languages">3. Functional languages</h2>
+<p>As we have mentioned in the Getting Started section, Cosmos adopts many principles and features that are common in functional programming languages, although they apply to <em>relations</em> rather than <em>functions</em>.</p>
+<p>This includes immutability, common patterns and even closures, which aren&#39;t native to Prolog.</p>
+<p>Naturally, both functional and logic languages are declarative, so some similarity is no coincidence.</p>
+<p>It&#39;s entirely possible to ignore relational programming and use a functional style.</p>
+</body></html>

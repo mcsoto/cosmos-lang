@@ -1,0 +1,682 @@
+<html><head><style>body {
+   color: black;
+}
+</style></head><body><h1 id="guide">Guide</h1>
+<ol>
+<li>Syntax</li>
+<li>Introduction </li>
+<li>2B. Relations</li>
+<li>2C. Operators</li>
+<li>2D. Data</li>
+<li>Tutorial</li>
+<li>Optimizations</li>
+</ol>
+<h3 id="1-syntax">1. Syntax</h3>
+<h2 id="syntax">Syntax</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Syntax</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td><code>#str</code></td>
+<td><code>size(str)</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>t.x</code></td>
+<td><code>table.get(t,x)</code></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><code>t[&#39;x&#39;]</code></td>
+<td><code>table.get(t,x)</code></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><code>t.x:2</code></td>
+<td><code>table.set(t,x,2)</code></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><code>:f(2)</code></td>
+<td>functor</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>--</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Types</th>
+<th>Data</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td><code>String</code></td>
+<td><code>&quot;str&quot;</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>Number</code></td>
+<td><code>1, 2.5</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>Relation</code></td>
+<td><code>rel(x) true;</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>Functor</code></td>
+<td><code>Tuple(x)</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>List</code></td>
+<td><code>[1,&#39;2&#39;]</code></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Operators</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td><code>and,or</code></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><code>if,when,choose</code></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><code>not,once</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Arithmetic Operators</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td><code>+ - * /</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>&lt; &gt; &lt;= &gt;= = !=</code></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Conversion (casting)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td><code>str</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>num, real</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="lexicon">Lexicon</h2>
+<p>Syntax: a language&#39;s grammar.</p>
+<h3 id="2-using-the-language">2. Using the Language</h3>
+<h2 id="installation">Installation</h2>
+<p>Before doing anything, you may check that you&#39;ve installed the language. By opening the language with the -v flag, you should see installation version number and confirm.</p>
+<p>Open a command-line and type,</p>
+<pre><code><span class="hljs-variable">$ </span>cosmos -v
+Cosmos <span class="hljs-number">0</span>.<span class="hljs-number">16</span>
+</code></pre><p>If the language is installed, you&#39;ll see something akin to this.</p>
+<h2 id="interpreter">Interpreter</h2>
+<p>A good way to try out a new language is by opening the interpreter, if one is available, and making statements in it. This can be done with the -i flag.</p>
+<p>We&#39;ll assume you have already downloaded the language.</p>
+<pre><code>$ cosmos -i
+&gt; x=<span class="hljs-number">1</span>
+| x = <span class="hljs-number">1</span>
+&gt; x=<span class="hljs-number">1</span> or <span class="hljs-number">2</span>=x
+| x = <span class="hljs-number">1</span>
+| x = <span class="hljs-number">2</span>
+&gt; str='hello'
+| str = 'hello'
+&gt; l=[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]
+| l=[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]
+</code></pre><p>This way, you should get a better idea of how the language works. Whenever you see a new kind of statement in this guide, you may use the interpreter to try it on.</p>
+<h2 id="writing-a-file">Writing a file</h2>
+<p>Make a file <code>hello.co</code> with the content,</p>
+<p><code>print(&#39;hello world&#39;)</code></p>
+<p>A program that writes &quot;hello world&quot; on the screen is one of the simplest programs you can do. This can be done with a <code>print</code> command.</p>
+<p>The file can be loaded with the <code>-l</code> flag.</p>
+<pre><code>$ cosmos <span class="hljs-_">-l</span> hello
+<span class="hljs-string">'hello world'</span>`
+</code></pre><h3 id="2-from-first-principles">2. From First Principles</h3>
+<h2 id="statements">Statements</h2>
+<p>A simple way to make a statement in Cosmos is to use equality, aka the <code>=</code> operator.</p>
+<pre><code><span class="hljs-attribute">x</span>=<span class="hljs-number">1</span>
+<span class="hljs-attribute">y</span>=z
+<span class="hljs-number">2.5</span>=z
+</code></pre><p>These are three kinds of statements you can make.</p>
+<pre><code>x=<span class="hljs-number">1</span>
+<span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(<span class="hljs-string">'hello world'</span>)</span></span>
+io.writeln(<span class="hljs-string">'hello world'</span>)
+</code></pre><p>The first uses the relation of equality.</p>
+<p>Then, the built-in <code>print</code> relation is used to write &#39;hello world&#39;.</p>
+<p>Finally, a <code>writeln</code> relation is taken from a module <code>io</code> to write &#39;hello world&#39;.</p>
+<h2 id="joining-statements">Joining statements</h2>
+<p>x=1
+y=2 and x=1</p>
+<p>Statements can be joined together with <em>and</em>.</p>
+<p>Statements from separate lines are implictly joined.</p>
+<p>x=1
+y=2</p>
+<p>... is the same as ...</p>
+<p>x=1 and y=2</p>
+<h2 id="data-types">Data types</h2>
+<p>Two basic types of data we&#39;ve seen so far are <em>Number</em> and <em>String</em>.</p>
+<p>Number includes 1, 2 and 2.5.</p>
+<p>Unlike numbers, strings refer to a piece of text surrounded by double or single quotation in code. </p>
+<p>String includes &#39;hello world&#39; and &quot;2&quot;.</p>
+<p>Remember that 2 is a <em>Number</em> but &#39;2&#39; is a <em>String</em>.</p>
+<h2 id="comments">Comments</h2>
+<h2 id="arithmetics">Arithmetics</h2>
+<p>x = num(2+1*4/2)</p>
+<p>The special <em>num</em> (or <em>real</em>) function computes the result of the mathematical operations, passing the result to x.</p>
+<p>This is not necessary.</p>
+<pre><code>| x=<span class="hljs-number">1</span>+<span class="hljs-number">2</span>
+print(x) <span class="hljs-comment">//1+2</span>
+</code></pre><p>This <em>is</em> a technically correct program and saying that the value of x is 1+2 is an answer. Though, it may not be the one we want.</p>
+<p>A logic program may sometimes,</p>
+<ol>
+<li>Apply a bunch of numerical operations, and,</li>
+<li>Evaluate the result of those operations with <em>num</em> or <em>real</em>, sometimes at the end of the program. This is the &quot;solving&quot; step.</li>
+</ol>
+<p>x = &#39;hello&#39;+&#39; world&#39;</p>
+<p>Different data types, such as strings, may have their own interpretation of addition. We may use addition to &quot;add&quot; two strings together, for example.</p>
+<pre><code><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(str(x)</span></span>) <span class="hljs-comment">//'hello world'</span>
+</code></pre><p>This is akin to <em>casting</em> in procedural languages. A value like 1+2 has a different type than <em>Number</em>. It&#39;s stored as-is before being solved by the language&#39;s arithmetic system.</p>
+<h2 id="constraint-arithmetics">Constraint Arithmetics</h2>
+<p>Cosmos is one of the few existing languages to have CLP as the default arithmetic system.</p>
+<pre><code>$ cosmos -i
+&gt; x=<span class="hljs-number">1</span>+y
+| x = <span class="hljs-number">1</span>+y
+&gt; x=num(<span class="hljs-number">1</span>+y)
+| x = _124
+| y = _123
+&gt; x&gt;<span class="hljs-number">5</span>
+| x &gt; <span class="hljs-number">5</span>
+</code></pre><p><em>Why?</em></p>
+<p>As this is a rather unique decision, we should probably explain.</p>
+<p>A regular language would have <em>x&gt;5</em> or <em>y+1</em> simply fail. In those cases, it doesn&#39;t know the value of x or y. It wouldn&#39;t then be able to solve those equations.</p>
+<p>As a logic language, they&#39;re simply taken as true until proven wrong. It&#39;s the same for equality, e.g. x=y would also give an error in a regular language. A logic language has <em>constraints</em> that are solved when needed.</p>
+<p>This is commonly called Constraint Logic Programming (CLP). Cosmos has CLP for Reals[1] as its default arithmetic.[2] This also means that it uses floating-point numbers.</p>
+<p>There are other known systems. However, they would not work well as the default arithmetics. CLP(FD) is limited to integers which would mean users couldn&#39;t use floating-point numbers at all.</p>
+<p>As the default arithmetics, we wanted a system that would, (1) work under normal circumnstances, at the least, and (2) not be limited to that; if possible, explore and make use of logic programming. If it weren&#39;t possible to use numbers with decimals, it would clearly not work under the circumnstances in which procedural arithmetics do, as they do use them, thus breaking (1).</p>
+<p>However, one can use other systems by calling the host language, and using a system from them. Furthermore, the current system may be changed by modifying <em>core.pl</em>.</p>
+<p>[1] As far as we know, CLP for Reals goes back to Prolog III. See <a href="http://prolog-heritage.org/en/ph30.html">http://prolog-heritage.org/en/ph30.html</a>.</p>
+<p>[2] It should be rather be asked why a logic language would <em>not</em> use CLP and instead present a classical, procedural system as the default one! Even though Prolog III has it, see [1]. It&#39;s practically asking users to make incorrect programs, logically speaking.</p>
+<h3 id="2b-relations">2B. Relations</h3>
+<h2 id="custom-statements">Custom Statements</h2>
+<p>Let&#39;s codify the intuition that &quot;the double of x is y&quot;.</p>
+<pre><code>rel double(<span class="hljs-name">x</span>,y)
+    y=num(<span class="hljs-name">x*2</span>)
+
+double(<span class="hljs-number">2</span>,z)
+</code></pre><p>We&#39;ve seen statements that use built-in relations like <em>print</em> and <em>=</em> but this is the first time we <em>define</em> our own relation. Specifically,</p>
+<ol>
+<li>We define a relation using the keyword <code>rel</code>.</li>
+<li>We then &quot;call&quot; upon that same relation.</li>
+</ol>
+<p>A fine rule to understand the second step is to substitute the statement for the definition.</p>
+<p>A statement like <code>double(2,z)</code> is, by our definition, <code>z=2*2</code>, once we&#39;ve substituted <code>x</code> by <code>2</code> and <code>y</code> by <code>z</code>.</p>
+<p>In other words, the result is that z now equals 2*2.</p>
+<p>Though <em>double</em> is not particularly useful, relations in general can single out pieces of code allowing for later use.</p>
+<p>As we&#39;ll see later, relations can be kept in a <em>module</em>.</p>
+<h2 id="what-is-a-relation-">What is a relation?</h2>
+<p>Cosmos™ is one of the few remaining <em>logic programming languages</em>. It&#39;s no surprise therefore that there&#39;s some connection.</p>
+<p>Logic itself concerns with statements that may be <em>true</em> or <em>false</em>, such as,</p>
+<p>```x equals 2
+The double of 2 is 4.
+Socrates is a human.
+It&#39;s raining.</p>
+<pre><code>
+What these statements have <span class="hljs-keyword">in</span> common is that they each have <span class="hljs-selector-tag">a</span> _relation_. This is more evident when written <span class="hljs-keyword">in</span> logic notation,
+
+```x = <span class="hljs-number">2</span>
+<span class="hljs-function"><span class="hljs-title">double</span><span class="hljs-params">(<span class="hljs-number">2</span>, <span class="hljs-number">4</span>)</span></span>
+<span class="hljs-function"><span class="hljs-title">human</span><span class="hljs-params">(<span class="hljs-string">'socrates'</span>)</span></span>
+<span class="hljs-function"><span class="hljs-title">rain</span><span class="hljs-params">()</span></span>.
+</code></pre><p>The relationship in <em>double(2, 4)</em> is <em>double</em>, which we defined beforehand. Naturally, this statement is true.</p>
+<p>Out of those, <em>=</em> is distinguishable enough that it doesn&#39;t need to be in logic notation. Generally, arithmetics stay in arithmetic notation.</p>
+<h2 id="logic-and-function-notation">Logic and function notation</h2>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-title">double</span><span class="hljs-params">(<span class="hljs-number">4</span>,x)</span></span>
+x=double(<span class="hljs-number">4</span>)
+</code></pre>
+<p>Consider these two statements. Although the meaning is the same, one of them uses <em>double</em> as a relation and the other uses it as a function.</p>
+<h2 id="more-about-truth">More about truth</h2>
+<h2 id="whitespace">Whitespace</h2>
+<p>Any major &quot;structure&quot; such as rel and if are delimited by an increase in whitespace (generally, comprised of four spaces or a single tab character).</p>
+<pre><code><span class="hljs-keyword">rel</span>(<span class="hljs-literal">true</span>)
+    <span class="hljs-literal">false</span>
+</code></pre><p>The code that comprises the if- and else-parts are evident through this method.</p>
+<p>An error is issued if there&#39;s any inconsistency. For example, if you chose the first indent to be four spaces but the second to be three.</p>
+<p>As long as you make a consistent rule, i.e. four spaces or one tab-only, there should be no issues.</p>
+<p>[1] As suggested by the programming language Python™, true statements can be used as placeholders.</p>
+<h3 id="2c-operators">2C. Operators</h3>
+<h2 id="and-or">and/or</h2>
+<p>In a logic language, these operators are more important than they may first seem. They are not only logical operators, they describe the flow of a logic language.</p>
+<p>We&#39;ve already seen them in use.</p>
+<pre><code>&gt; <span class="hljs-attr">x=1</span> <span class="hljs-literal">and</span> <span class="hljs-number">2</span>=y
+| <span class="hljs-attr">x</span> = <span class="hljs-number">1</span> <span class="hljs-literal">and</span> <span class="hljs-attr">y</span> = <span class="hljs-number">2</span>
+&gt; <span class="hljs-attr">x=1</span> <span class="hljs-literal">or</span> <span class="hljs-number">2</span>=x
+| <span class="hljs-attr">x</span> = <span class="hljs-number">1</span>
+| <span class="hljs-attr">x</span> = <span class="hljs-number">2</span>
+</code></pre><p><em>Logic interpretation</em>
+A and B: Both A and B are true.</p>
+<p>A or B: Either A, B or both are true.</p>
+<h2 id="a-more-complicated-example">A more complicated example</h2>
+<p>This one is a bit more complicated.</p>
+<p><code>x=1 or x=2</code> essentially states that x may be 1 <em>or</em> 2. Which is to say, we don&#39;t know what the value is!</p>
+<p>But what about <code>(x=1 or x=2) and x!=1</code>?</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">rel</span> p(x)
+    x=<span class="hljs-number">1</span> <span class="hljs-keyword">or</span> x=<span class="hljs-number">2</span>
+
+<span class="hljs-built_in">rel</span> main()
+    p(x)
+    x!=<span class="hljs-number">1</span>
+    io.writeln(x)<span class="hljs-comment"> //2</span>
+</code></pre>
+<h2 id="logic-and-procedural-interpretations">Logic and procedural interpretations</h2>
+<p>Naturally, we have said that x is 1 or 2. Since we then state that x <em>is not</em> 1, it&#39;s only possible for it to be 2. This is the logical interpretation of the program.</p>
+<p>The program will then call io.writeln to write 2 on the screen.</p>
+<h2 id="logical-engine-i-">Logical Engine (I)</h2>
+<p>Cosmos is a language based on logic. Still, it runs on a computer. As such, there has to be a procedural (i.e. a machine-based) explanation on how the program runs.</p>
+<p>We might say it&#39;s a logic program that&#39;s run by a procedural &quot;logical engine&quot;.</p>
+<p>We may call it the logic-procedural interpretation. This would be the <em>procedural</em> explanation on how our <em>logic</em> program is run.</p>
+<p><em>Procedural interpretation</em>
+A and B: A and B are both evaluated, in sequence.</p>
+<p>A or B: A is evaluated. If that fails, B is evaluated.</p>
+<ol>
+<li>As p(x) is called, first x=1 is evaluated.</li>
+<li>However, we then evaluate x!=1. A contradiction is found.</li>
+<li><em>However,</em> we can still go back. Our program then backtracks to p(x), and evaluates x=2.</li>
+<li>This time there are no contradictions.</li>
+<li>It prints succesfully.</li>
+</ol>
+<p>This is a proccess that, by the way, would not exist in a truly procedural language. A procedural program has no concept of backtracking. That is, it has no <em>or</em>. It&#39;s as if only <em>and</em> is used.</p>
+<p>It&#39;s because this is a logic language that we must ensure our program works correctly.</p>
+<h2 id="limitations">Limitations</h2>
+<p>This brings us to the well-known limitations of LP.</p>
+<ol>
+<li>Infinite loops</li>
+</ol>
+<p>Let&#39;s consider,</p>
+<pre><code class="lang-javascript">rel p(<span class="hljs-name">x</span>)
+    p(<span class="hljs-name">x</span>)
+
+p(<span class="hljs-name">x</span>)
+</code></pre>
+<p>The program will call p(x), which will call p(x). This is an example of recursion. This is an example of an infinite loop, as the program will run forever.</p>
+<p>The problem with this is that even correct logical problems may fall into an infinite loop.</p>
+<ol>
+<li>Performance</li>
+</ol>
+<!--The other issue happens when you try to make a program.-->
+<h2 id="a-counterpoint">A Counterpoint</h2>
+<p>A possible counterpoint is that-- every language has the same problem, that is, they too can fall into infinite loops.</p>
+<p>Couple that with the fact this occurs when you&#39;re doing recursion. Generally, if your program relies on a relation calling itself it&#39;s pretty obvious that it&#39;s doing so, and you have a hint that you should be looking out for such things.</p>
+<p>The second point is a result of combining a query solver with a programming language. If you simply want the solver to answer a query, does it matter if it takes a few seconds (or less) longer? If you want to use it as a fast programming language, shouldn&#39;t</p>
+<p>The programmer then wants to instead use it as a blazing fast programming language, while at the same time expecting it to be fast without doing any work on optimizing it- which is not how it works in any language. </p>
+<p>Even if it&#39;s not ideal, knowing how the program works is often necessary to optimize it in any language.</p>
+<h3 id="2c-operators">2C. Operators</h3>
+<h2 id="operators">Operators</h2>
+<p>Adding to our repertoire, we have <em>if</em> and <em>not</em>.</p>
+<p>Logically speaking, this lets us represents all kinds of statements in the form,</p>
+<p><code>If X, then Y.</code>
+<code>not X.</code></p>
+<p>Which are common in logic and show up in practical programming.</p>
+<p>```If it&#39;s raining, then someone will bring an umbrella.
+If someone is a human, they&#39;re mortal. (aka All humans are mortals)
+It&#39;s not raining.</p>
+<pre><code>
+<span class="hljs-section">_if_
+--</span>
+</code></pre><p>if(true)
+    print(&#39;condition is true&#39;)
+else
+    print(&#39;condition is not true&#39;)</p>
+<pre><code>
+We may again <span class="hljs-built_in">open</span> <span class="hljs-keyword">the</span> interpreter <span class="hljs-built_in">to</span> <span class="hljs-keyword">try</span> <span class="hljs-keyword">if</span>-statements.
+</code></pre><p>$ cosmos -i</p>
+<blockquote>
+<p>if(x!=1) x=2;
+| x=2
+if(x!=1) x=2 or x=1;
+| x=2
+| x=1
+if(x!=1) x=2;
+| x=2
+```</p>
+</blockquote>
+<p>The body of the if-stm will be evaluated when the condition, e.g. x=1, is true.</p>
+<pre><code>&gt; <span class="hljs-keyword">if</span>(<span class="hljs-literal">false</span>) <span class="hljs-attr">x=2</span> <span class="hljs-keyword">else</span> <span class="hljs-attr">x=1;</span>
+| <span class="hljs-attr">x=1</span>
+&gt; <span class="hljs-keyword">if</span>(<span class="hljs-attr">x=1)</span> <span class="hljs-attr">x=1</span> <span class="hljs-keyword">else</span> <span class="hljs-attr">x=0;</span>
+| <span class="hljs-attr">x=1</span>
+| <span class="hljs-attr">x=0</span>
+</code></pre><p>It&#39;s possible for an if-statement to have an else-clause. If the condition is true, the if-part holds, otherwise the else-part holds.</p>
+<p>In the latter example, the interpreter tried out both possibilities and gave two answers.</p>
+<h2 id="_elseif_"><em>elseif</em></h2>
+<pre><code><span class="hljs-keyword">if</span>(<span class="hljs-attr">x=1)</span>
+    <span class="hljs-attr">y=2</span>
+elseif(<span class="hljs-attr">x=1)</span>
+    <span class="hljs-attr">y=2</span>
+<span class="hljs-keyword">else</span>
+    <span class="hljs-literal">true</span>
+</code></pre><p>Naturally, this is just a way to write,</p>
+<p><em>Logical interpretation</em></p>
+<p>You may think of an if-statement as equivalent to,</p>
+<p>if(A) B else C; &lt;==&gt; (A and B) or (not A and C) </p>
+<p>An if-statement without else is,</p>
+<p>if(A) B; &lt;==&gt; (not A) or B</p>
+<p>Though this may not be its exact implementation.</p>
+<h2 id="_not_"><em>not</em></h2>
+<pre><code>&gt; not x=<span class="hljs-number">2</span>
+| x!=<span class="hljs-number">2</span>
+&gt; not <span class="hljs-number">5</span>&lt;<span class="hljs-number">1</span>
+| x=<span class="hljs-number">1</span>
+| x=<span class="hljs-number">0</span>
+&gt; not x&lt;=<span class="hljs-number">2</span>
+| x&gt;<span class="hljs-number">2</span>
+</code></pre><p>As you may have noted, <em>not</em> simply negates a statement.</p>
+<p><em>Logical interpretation</em></p>
+<p>The negation of A is simply false when A holds, and true when A doesn&#39;t. </p>
+<h2 id="complex-conditionals">Complex Conditionals</h2>
+<p>We recommend keeping the conditions for an <em>if</em> or <em>not</em> to simple arithmetics.</p>
+<p>It&#39;s easy to see that <em>not x=1</em> is the same as <em>x=1</em>. Similarly, <em>not x&gt;5</em> is just <em>x&lt;=5</em>.</p>
+<p>If a condition is too complex for our if-statement, an error will be given. You may try re-working your code or using an alternative conditional.</p>
+<p>Finally, you may fall back from logic programming entirely and use <em>functions</em>.</p>
+<p>Negation is actually more complicated to implement than it looks like, at least in a logic language. If you&#39;re interested in the details, see the implementation section - Logic-Procedural (II).</p>
+<h2 id="logic-procedural-ii-">Logic-Procedural (II)</h2>
+<p>We have not settled the mechanics for <em>if</em> (and <em>not</em>) completely. The only requirements are that,</p>
+<ul>
+<li>It&#39;s a logically sound conditional.</li>
+<li>If it can&#39;t do that, an error is given.</li>
+</ul>
+<p>The reason for this is that we want to allow for different optimizations and ways to implement a logical conditional/negation to be tried.</p>
+<p>For us, being able to use a sound conditional is already an improvement. Prolog famously implemented negation in an unsound way (that also gave no warnings whatsoever).This </p>
+<p>This has highly limited experimentation with logic programming, as two operators were rendered mostly unusable.</p>
+<p>For relations that require a specific implementation, we use the <em>when</em> operator. The <em>when</em> is simply syntax for and/or,</p>
+<p>when(A) B else C &lt;==&gt; (A and B) or (C) </p>
+<p>As you see, this is a rather barebones conditional. It evaluates to and/or, and is therefore pure code. However, the <em>else</em> is redundant, as the condition is not used. A further analysis will show that <em>when</em> will get caught in an infinite loop in many times where <em>if</em> doesn&#39;t, although it will work for the first answer.</p>
+<p>You may use it to implement your own conditional, as long as you write out the negation,</p>
+<p>when(x=2)
+    true
+else
+    x!=2</p>
+<p>Furthermore, it can be easily switched with other conditionals as they share similar keywords.</p>
+<h2 id="functions">Functions</h2>
+<p>If it really is such a problem, a simple solution is to fall back into functions. A relation can be turned into a function by changing the <code>rel</code> to a <code>fun</code> keyword.</p>
+<pre><code><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">q</span></span>(x,y)
+    <span class="hljs-keyword">if</span>(p(x))
+        y=<span class="hljs-number">2</span>
+    <span class="hljs-keyword">else</span>
+        y=<span class="hljs-number">1</span>
+</code></pre><p>As functions have simple requirements when compared to full relations, an <em>if</em> or <em>when</em> will accept any conditions when inside a function[1].</p>
+<p>Because a function is only meant to run once, there is no need to support backtracking or any other logical mechanisms.</p>
+<p>This may mean we&#39;re abandoning relational programming (LP) for a moment, though this is restricted to <em>q</em>.</p>
+<p>We&#39;ll explain this further in a later section.</p>
+<p>[1] The semantics of <em>if</em> or <em>when</em> will be turned into that of a <em>commited-choice</em> conditional. This is also the <em>choose</em> operator in Cosmos. </p>
+<h2 id="list-of-conditionals-summary-">List of Conditionals (Summary)</h2>
+<p>if: guaranteed to be logically sound, gives error if the condition is too complex.
+when: simple conversion to and/or. Even if it fulfills the condition and goes to if-code, it may still backtrack to else-code. Works for any condition.
+choose: simply checks if the condition is true, then chooses if or else-code. It&#39;ll not backtrack, but then this may not be logically sound.</p>
+<p>We recommend sticking to <em>if</em> when possible.</p>
+<p><em>if</em> works best with simple conditions, i.e. simple inequalities such as != or &gt;=.</p>
+<!--If this is unreasonable, a simple solution is to fall back into functions, which we'll explain in a later section.-->
+<h2 id="a-conditional-in-formal-logic">A Conditional in Formal Logic</h2>
+<p>This is just trivia, but it may be of interest to some that the actual conditional <em>A-&gt;B</em> in formal logic does not have an <em>else</em>.</p>
+<p>It&#39;s simply something adopted from procedural programming where we often specify what to do if a condition is not true. This has often been adopted by LP aswell.[1] </p>
+<p><code>If it&#39;s raining, then I will fly.</code></p>
+<p>An odd thing about the formal conditional is that it holds true when the condition is false. As we said before, <code>if(A) B; &lt;==&gt; (not A) or B</code>. </p>
+<p>This is actually rather arbitrary! The implication is that if we confirm that it did not rain, then this odd implication is true.</p>
+<p>Perhaps we&#39;d rather say: &quot;you would not fly anyway!&quot;</p>
+<p>That would maybe render the implication false.</p>
+<p>What about an implication that is always false when the condition is false? This would be arbitrary aswell.</p>
+<p>Though this may be a moot point, we may conclude the formal implication is not the same as the implication we use in natural language.</p>
+<p>There is no justification given for any of this.[2] It was simply deemed useful to take a conditional as true when we can&#39;t say otherwise.</p>
+<p>It&#39;s useful in our programs to say,</p>
+<p><code>If the switch is set, our program will beep.</code></p>
+<p>And, if the condition doesn&#39;t hold, simply go on with our program. We&#39;re going by the assumption that our machinery is correct.</p>
+<p>[1] See reif or <code>(-&gt;;)</code>.
+[2] One may consult the <em>Principia Mathematica</em> for a definition and explanation of the logical implication and see that, once again, it&#39;s an arbitrary definition.</p>
+<h2 id="whitespace">Whitespace</h2>
+<p>It&#39;s about time we explained our use of whitespace and indendation.</p>
+<p>Any major &quot;structure&quot; such as rel and if are delimited by an increase in whitespace (generally, comprised of four spaces or a single tab character).</p>
+<pre><code><span class="hljs-keyword">if</span>(<span class="hljs-literal">true</span>)
+    <span class="hljs-literal">false</span>
+<span class="hljs-keyword">else</span>
+    <span class="hljs-literal">false</span>
+</code></pre><p>The code that comprises the if- and else-parts are evident through this method.</p>
+<p>An error is issued if there&#39;s any inconsistency. For example, if you chose the first indent to be four spaces but the second to be three.</p>
+<p>As long as you make a consistent rule, i.e. four spaces or one tab-only, there should be no issues.</p>
+<p>Syntax-wise, whitespace only adds <em>ands</em> to the end of lines (unless a keyword like <em>else</em> or <em>case</em> pops up) and ends any unindent with a <em>semicolon</em>.</p>
+<p>As such, the semantics of whitespace are very easy to understand.</p>
+<p>Coming from a procedural language, it may seem odd that a semicolon is used to end a structure.</p>
+<p>Still, this is in line with the syntax of most LP language.</p>
+<h3 id="2d-data">2D. Data</h3>
+<h2 id="functors">Functors</h2>
+<p>We start with a declaration.</p>
+<pre><code><span class="hljs-function"><span class="hljs-title">functor</span><span class="hljs-params">(F, Functor)</span></span>
+</code></pre><p>By using the special relation <em>functor</em>, we declare that <em>F</em> is a functor, or rather, it&#39;s what will be used to make functors. We can now make functors with the name/label <em>F</em>.</p>
+<pre><code><span class="hljs-function"><span class="hljs-title">F</span><span class="hljs-params">(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)</span></span> = F(<span class="hljs-number">1</span>, a)
+<span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(a)</span></span> <span class="hljs-comment">//2</span>
+</code></pre><p>Functors are a kind of composite data. They are what some languages call a <em>tuple</em>.</p>
+<p>If 1 or &#39;hello&#39; is a single value, F(1,&#39;hello&#39;) is a value made from combining both. </p>
+<p>We made two functors. Since they are equal to each other, we can also conclude that its values are. Hence, <code>a=2</code>.</p>
+<h2 id="a-practical-example">A Practical Example</h2>
+<p>Let&#39;s say we want to represent a person in our program. We could just make a functor <code>Person</code>.</p>
+<pre><code><span class="hljs-function"><span class="hljs-title">functor</span><span class="hljs-params">(Person, Functor)</span></span>
+</code></pre><p>We can now make our first person.</p>
+<pre><code><span class="hljs-attr">bob</span> = Person(<span class="hljs-string">'bob'</span>, <span class="hljs-number">23</span>)
+</code></pre><p>We have made the convention that the first two fields of <code>Person</code> stand for name and age, though if needed we could have included more fields. This allows us to make programs about one or more persons!</p>
+<p>This is not the only way we could represent a person, of course. Cosmos™ has <em>objects</em> aswell, which are very similar in that sense! We&#39;ll cover them later.</p>
+<h2 id="tuple">Tuple</h2>
+<p>If we simply to group things together, any functor is enough. We may use a <em>F</em> or <em>Tuple</em> functor for this.</p>
+<pre><code>&gt; <span class="hljs-keyword">Tuple</span>(x,<span class="hljs-number">1</span>) = <span class="hljs-keyword">Tuple</span>(<span class="hljs-string">'x'</span>, y)
+| x=<span class="hljs-string">'x'</span> <span class="hljs-keyword">and</span> y=<span class="hljs-number">1</span>
+</code></pre><h2 id="lists">Lists</h2>
+<p>A list is another kind of composite data. Let&#39;s say we want a list of things. This can easily be done with the syntax,</p>
+<pre><code>l = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+</code></pre><p>We&#39;ve made a list with the values 1, 2 and 3.</p>
+<p>There are operations we can make on lists. We can add, subtract or search for elements within it. These can be found in module list.</p>
+<pre><code>l2 = <span class="hljs-type">list</span>.push(l, <span class="hljs-number">55</span>)
+io.writeln(l)  <span class="hljs-comment">//[1, 2, 3]</span>
+io.writeln(l2) <span class="hljs-comment">//[1, 2, 3, 55]</span>
+</code></pre><p>If we <em>push</em> value 55 into l, we&#39;ll get a new list l2 with elements.</p>
+<pre><code>l = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]
+<span class="hljs-type">list</span>.first(l, head) <span class="hljs-comment">//head is 1</span>
+<span class="hljs-type">list</span>.rest(l, tail) <span class="hljs-comment">//tail is [2, 3]</span>
+l=[head|tail]
+</code></pre><p>A common operation is to get the <em>first</em> element in a list, or the <em>rest</em>- the remaining, which itself is a new list. These are sometimes called the head and tail of a list.</p>
+<p>This is a common pattern in declarative programming, and as such there&#39;s even a special syntax for it.</p>
+<p>l=[head|tail]</p>
+<p>The term [x|y] is very different from [x,y]- the latter is a list with two elements. The former is any list.</p>
+<h2 id="lists-as-functors">Lists as Functors</h2>
+<p>Lists are often implemented in terms of the functor Cons. These lists are identical:</p>
+<pre><code><span class="hljs-attr">l</span> = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]
+<span class="hljs-attr">l</span> = Cons(<span class="hljs-number">1</span>, Cons(<span class="hljs-number">2</span>, Cons))
+</code></pre><h3 id="2e-modes">2E. Modes</h3>
+<h2 id="functions-incomplete-">Functions [Incomplete]</h2>
+<p><em>&quot;A function is a less general kind of relation.&quot; - The Cosmos Programming Language</em></p>
+<p>While a relation may give multiple answers-- or no answer at all (in which case the statement is taken to be <em>false</em>), a function is guaranteed to only give one.[1]</p>
+<!--Consider double.-->
+<p>[1] A function here is meant to mimic a typical <em>programming function</em> that you often see in procedural or functional languages. It&#39;s not necessarily a mathematical function. For example, it may accept more than one input.</p>
+<h2 id="a-factorial-function">A Factorial Function</h2>
+<p>There&#39;s no clear rule on what should or shouldn&#39;t be a function.</p>
+<p>We&#39;ll take <em>factorial</em> as a good case.</p>
+<ul>
+<li>It&#39;s often a function in mathematics.</li>
+<li>It may run multiple times. As such, it often benefits from whatever optimizations we may give it.</li>
+<li>You don&#39;t usually need anything more than simply getting its result.</li>
+</ul>
+<pre><code><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">fact</span></span>(x,y)
+    <span class="hljs-keyword">if</span>(x=<span class="hljs-number">0</span>)
+        y=<span class="hljs-number">1</span>
+    <span class="hljs-keyword">else</span>
+        y=x*fact(num(x-<span class="hljs-number">1</span>))
+</code></pre><h2 id="a-main-function">A Main Function</h2>
+<h3 id="3-a-prolog-tutorial">3. A &quot;Prolog&quot; tutorial</h3>
+<p>A common way to introduce logical languages is by emphasizing its relation to logic. Although it&#39;s not very practical, it&#39;s as good as any tutorial or introduction nonetheless.</p>
+<p>Let&#39;s make it clear that,</p>
+<ul>
+<li>A program is a set of relations.</li>
+<li>These relations are then <em>queried</em>.</li>
+</ul>
+<pre><code><span class="hljs-built_in">rel</span> human(x)
+    x=<span class="hljs-string">'socrates'</span>
+
+<span class="hljs-built_in">rel</span> mortal(x)
+    human(x)
+</code></pre><h2 id="possible-worlds">Possible worlds</h2>
+<pre><code>t={
+    <span class="hljs-function">rel <span class="hljs-title">human</span>(<span class="hljs-params">x</span>)
+        x</span>=<span class="hljs-string">'socrates'</span>
+
+    <span class="hljs-function">rel <span class="hljs-title">mortal</span>(<span class="hljs-params">x</span>)
+        <span class="hljs-title">human</span>(<span class="hljs-params">x</span>)
+}</span>
+</code></pre><h3 id="3a-paradigms">3A. Paradigms</h3>
+<p>Typically, programming is divided into four main paradigms,</p>
+<ul>
+<li>Procedural (imperative)</li>
+<li>Functional</li>
+<li>Logic
+-- Logic-procedural (?!)</li>
+<li>Object-oriented</li>
+</ul>
+<p>Although this classification is increasingly dated, it&#39;s still used (and somewhat useful) to this day.</p>
+<h2 id="logic">Logic</h2>
+<pre><code>x=double(<span class="hljs-number">1</span>)
+y=x
+print(<span class="hljs-name">y</span>)
+</code></pre><p>In the logic paradigm, or logic programming (LP), which we follow to the letter, as our language <em>is</em> in fact a logic programming language, this is simply a set of statements.</p>
+<ul>
+<li>The double of 1 is x.</li>
+<li>The variable of y equals x.</li>
+<li>The value of y is written on the screen.</li>
+</ul>
+<p>It&#39;s easy to see by looking at the program that this applies. We may simply look at the program and see that x equals the result of a function <em>double</em>, y is x, and the value is written (which we know the statement <em>print</em> does).</p>
+<p>We only have to take a moment to conclude that 2 will be written if we run the program, and it is.</p>
+<pre><code><span class="hljs-number">2</span>
+</code></pre><h2 id="procedural">Procedural</h2>
+<p>If a paradigm is a way to look at a given program, the procedural paradigm looks at it <em>imperatively.</em> A program is a recipe, or list of instructions to be executed by the computer.</p>
+<p>This paradigm follows the computer program closely. It&#39;s the closest to how the computer actually acts.</p>
+<p>The following instructions would be executed.</p>
+<ol>
+<li>A procedure or command <em>double</em> computes the double of 1.</li>
+<li>This value is given to x. A variable in the procedural paradigm is like a slot. In fact, it&#39;s a slot of <em>computer memory</em> and occupies a space in the computer.</li>
+<li>The value in x is then assigned to the slot y.</li>
+<li>The command to write the statement on the screen, <em>print</em>, is given.</li>
+</ol>
+<p>The difference so far is subtle, and you could take it as a procedural program as-is. In fact, our language highly resembles procedural languages in syntax.</p>
+<p>This is on purpose, the language is made so that it can be reasoned or written in this style to some extent.</p>
+<h2 id="logic-procedural">Logic-Procedural</h2>
+<p>Though you may often simply see the program as a series of statements in the logic paradigm, it&#39;s sometimes needed to know how the computer executes them.</p>
+<p>After all, the program runs in a computer.</p>
+<p>We&#39;ll call this the &quot;Logic-Procedural&quot; paradigm (though it&#39;s a made-up term we invented). The Logic-Procedural interpretation of a program is given by how our procedural logic engine executes the logic program.</p>
+<p>Often, the only reason we need to know this is so our program has good performance. An efficient program will run as quickly as it can and not consume many <em>memory slots</em>.</p>
+<h2 id="limitations">Limitations</h2>
+<h2 id="styles">Styles</h2>
+<p>A lot of this may be better off understood as styles.</p>
+<h3 id="3b-pure-logic-programming">3B. Pure Logic Programming</h3>
+<p>Most important for our language is the notion of a pure logic program.</p>
+<p>Logic programs allow us to effectively write logical statements and have the language work them out correctly.</p>
+<h2 id="writing-pure-relations">Writing pure relations</h2>
+<ul>
+<li>Any relation made of pure relations and operators is pure.</li>
+<li>=, and, or, if and regular arithmetic are pure.</li>
+</ul>
+<p>Knowing you have written a pure relation is quite simple.</p>
+<p>All you have to do is use pure relations! Then, your relation is also pure.</p>
+<h3 id="4b-optimizations">4B. Optimizations</h3>
+<h2 id="_if_"><em>if</em></h2>
+<p>Because it&#39;s the language&#39;s main conditional, any number of optimizations may be applied to it as long as it keeps its properties as a conditional (while the operator <em>when</em> is kept for fine-tuning; if you want a minimal conditional to which you can apply your own optimizations). </p>
+<p>Currently, </p>
+<ul>
+<li>Any condition is negated.</li>
+</ul>
+<h2 id="_when_-and-_choose_"><em>when</em> and <em>choose</em></h2>
+<p><em>when</em> is a sound but more barebones conditional. Implementing a pure factorial relation in <em>when</em> makes for a good case study.</p>
+<p><em>when</em> is a pure conditional. Still, since it requires you to manually negate the condition (which is redundant otherwise) and may not provide future optimizations, unless you implement them yourself, it&#39;s less preferred and not the default go-to for conditionals.</p>
+<p>Remember that relations may <em>backtrack</em> or yield more than one solution. Even if a factorial relation succeeds the first time, an ill-defined program may cause on the second solution. </p>
+<p>Let&#39;s compare this to,</p>
+<p>rel fact(x,y)
+    when(x=0)
+        y=1
+    else
+        y=x*fact(num(x-1))</p>
+<p>... or ...</p>
+<pre><code>(<span class="hljs-name">x=0</span> and y=1) or (<span class="hljs-name">y=x*fact</span>(<span class="hljs-name">num</span>(<span class="hljs-name">x-1</span>)))
+</code></pre><p>While fact(1,x) would still work, it would for the first solution alone. Remember that relations may <em>backtrack</em> or yield more than one solution. </p>
+<p>This would suffice were it a regular imperative or functional definition of factorial, since those are meant to run only once and never backtrack.</p>
+<p>However, this is not so for a logical language and different reasoning is needed. If it ever tries to find a second solution, it will procceed to the second clause. The reader is invited to keep this in mind and accompany the execution of fact(1,x).</p>
+<p>rel fact2(x,y)
+    when(x=0)
+        y=1
+    else
+        x&gt;0
+        y=x*fact2(num(x-1))</p>
+<p>As you see, we have,</p>
+<ul>
+<li>Manually negated x=0, by typing x&gt;0.</li>
+</ul>
+<p>The program now works soundly, even if it&#39;s not perfect! It still creates places to backtrack or <em>choice points</em>. This consumes memory, moreso if we call <em>when</em> a lot of times. But at least these are eliminated upon hitting x&gt;0.</p>
+<p>==</p>
+<p>What then if we simply removed backtracking?</p>
+<p><em>choose</em> is a non-logical conditional that doesn&#39;t backtrack.</p>
+<p>As such, it&#39;s fit for code with side-effects. A simple prompt, for example.</p>
+<p>rel prompt()
+    print(&#39;type a number&#39;)
+    io.write(&#39;&gt; &#39;)
+    io.read(x)
+    choose(x=&#39;5&#39;)
+        print(&#39;You typed 5!&#39;)
+    else
+        print(&#39;You didn&#39;t type 5!?&#39;)
+    prompt()</p>
+<p>Such code is non-logical in the first place- and has no need for backtracking.</p>
+<p>The safest option is still to rely on <em>if</em>. It should never be unsafe to use <em>if</em>. For cases it can&#39;t be used, you&#39;ll invariably be given a warning or error at least. However, <em>choose</em> and <em>when</em> are available if you&#39;re aware of the limitations.</p>
+<h2 id="_tco_-tail-call-optimization-"><em>TCO</em> (Tail-Call Optimization)</h2>
+</body></html>

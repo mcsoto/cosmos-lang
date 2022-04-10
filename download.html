@@ -1,0 +1,23 @@
+<html><head><style>body {
+   color: black;
+}
+</style></head><body><h1 id="installation">Installation</h1>
+<h2 id="as-an-executable">As an Executable</h2>
+<p>Cosmos can be installed by, (1). Installing Swi-Prolog (preferably 8.4+), (2) downloading the <a href="https://github.com/mcsoto/cosmos-lang/releases/tag/v0.13.3-alpha">latest release</a>, and (3) simply typing,</p>
+<pre><code><span class="hljs-attribute">make</span>
+</code></pre><p>in the project directory.</p>
+<p>This should work on any system that can run Swi-Prolog.</p>
+<p>You can test that the installation has succeeded.</p>
+<pre><code><span class="hljs-variable">$ </span>cosmos -v
+<span class="hljs-string">"Cosmos 0.13 beta - (Pl)"</span>
+</code></pre><h2 id="pack">Pack</h2>
+<p>Cosmos can be installed as a Swi-Prolog pack. This is recommended if you are already a Prolog user or plan to use the languages together.</p>
+<pre><code><span class="hljs-selector-pseudo">:-</span> <span class="hljs-selector-tag">pack_install</span>(cosmos).
+</code></pre><p>You can then load the language.</p>
+<pre><code><span class="hljs-selector-pseudo">:-</span> <span class="hljs-selector-tag">use_module</span>(library(cosmos)).
+<span class="hljs-selector-pseudo">:-</span> <span class="hljs-selector-tag">cquery</span>(<span class="hljs-string">'x=2'</span>).
+</code></pre><p>If you want to open the interpreter:</p>
+<pre><code>:- cstart.
+</code></pre><p>As said, this is recommended if you&#39;re already a Prolog user. You&#39;re opening the Cosmos interpreter inside the Prolog interpreter, and so on. This is somewhat redundant. </p>
+<p>Naturally, you may install it both normally and as a pack.</p>
+</body></html>
